@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
-        android:name=".TechITApplication"
+        android:name=".ComposeApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +17,7 @@
         android:theme="@style/Theme.TechIT"
         tools:targetApi="31">
         <activity
-            android:name="com.service.techit.view.HomeActivity"
+            android:name="com.service.composesample.view.HomeActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

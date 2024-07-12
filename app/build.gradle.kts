@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.service.techit"
+    namespace = "com.service.composesample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.service.techit"
+        applicationId = "com.service.composesample"
         minSdk = 24
         targetSdk = 34
         versionCode = 5

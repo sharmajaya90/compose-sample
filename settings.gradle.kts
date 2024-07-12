@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TechIT"
+rootProject.name = "compose-sample"
 include(":app")
  

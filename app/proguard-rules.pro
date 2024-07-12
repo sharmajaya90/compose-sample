@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep your model classes and their constructors
--keepclassmembers class com.service.techit.model.QAInfo {
+-keepclassmembers class com.service.composesample.model.QAInfo {
     public <init>();
 }
 
