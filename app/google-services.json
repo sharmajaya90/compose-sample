@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "938061463105",
+    "project_id": "techit-66b85",
+    "storage_bucket": "techit-66b85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:938061463105:android:f3695b5e1a145b6c8190c0",
+        "android_client_info": {
+          "package_name": "com.service.techit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6NEBhLnjqNKwZXawD0Sb_KDjmaoJu0hU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

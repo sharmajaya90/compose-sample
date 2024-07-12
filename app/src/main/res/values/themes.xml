@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TechIT" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Whatever you set here will be shown instead of the black screen. -->
+        <item name="android:windowBackground">@drawable/splashscreen_image</item>
+    </style>
+</resources>
