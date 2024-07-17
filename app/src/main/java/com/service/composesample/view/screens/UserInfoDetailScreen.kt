@@ -39,6 +39,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.service.composesample.model.UserInfo
 import com.service.composesample.viewmodel.BackgroundViewModel
 import kotlinx.coroutines.launch
 import me.onebone.toolbar.CollapsingToolbarScaffold
@@ -49,17 +50,9 @@ import retrofit2.Retrofit
 @OptIn( ExperimentalPagerApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun UserInfoDetailScreen(navController: NavHostController,userKey:String?, retrofit: Retrofit, backgroundViewModel: BackgroundViewModel = viewModel()) {
-    val coroutineScope = rememberCoroutineScope()
-    var position:Int by remember { mutableIntStateOf(0) }
+fun UserInfoDetailScreen(userInfo: UserInfo?,navController: NavHostController, retrofit: Retrofit, backgroundViewModel: BackgroundViewModel = viewModel()) {
     var pageTitle by remember { mutableStateOf("") }
-    val pagerState = rememberPagerState()
     val state = rememberCollapsingToolbarScaffoldState()
-    LaunchedEffect(Unit) {
-        coroutineScope.launch {
-            pagerState.scrollToPage(position)
-        }
-    }
     CollapsingToolbarScaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -91,34 +84,30 @@ fun UserInfoDetailScreen(navController: NavHostController,userKey:String?, retro
                 .background(Color.White),
             contentAlignment = Alignment.Center
         ) {
-            HorizontalPager(
-                count = 2,
-                state = pagerState,
-                userScrollEnabled = true
-            ) { page ->
-                pageTitle = ""
-                val scrollState = rememberScrollState()
-                // Our page content
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp)
-                        .verticalScroll(scrollState)
-                ) {
-                    Text(
-                        text = "*",
-                        style = MaterialTheme.typography.h5,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "",
-                        style = MaterialTheme.typography.body1,
-                        color = Color.Black
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = "${userInfo?.name}",
+                    style = MaterialTheme.typography.h5,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "${userInfo?.email}",
+                    style = MaterialTheme.typography.body1,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "${userInfo?.address}",
+                    style = MaterialTheme.typography.body1,
+                    color = Color.Black
+                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

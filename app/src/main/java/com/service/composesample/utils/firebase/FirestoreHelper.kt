@@ -29,6 +29,18 @@ object FirestoreHelper {
             emptyList()
         }
     }
+
+
+    suspend fun findUserInfoList(): List<UserInfo> {
+        return try {
+            val result = db.collection(collectionUrlPath)
+                .get()
+                .await()
+            result.documents.mapNotNull { it.toObject(UserInfo::class.java) }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
     fun updateUserInfo(userInfo: UserInfo, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         db.collection(collectionUrlPath).document(userInfo.key?:"")
             .update(mapOf("id" to "${userInfo.key}","key" to "","name" to "${userInfo.name}","email" to "${userInfo.email}","address" to "${userInfo.address}","image" to "${userInfo.image}"))

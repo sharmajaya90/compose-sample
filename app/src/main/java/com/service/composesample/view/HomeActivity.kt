@@ -1,18 +1,23 @@
 package com.service.composesample.view
 
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.gson.Gson
 import com.service.composesample.extensions.coreComponent
+import com.service.composesample.model.UserInfo
 import com.service.composesample.model.database.dao.UserInfoDao
+import com.service.composesample.utils.firebase.FirestoreHelper
 import com.service.composesample.view.di.DaggerCommonUIComponent
 import com.service.composesample.view.screens.LoginScreen
 import com.service.composesample.view.screens.UserInfoDetailScreen
@@ -45,13 +50,21 @@ class HomeActivity : ComponentActivity() {
     @Composable
     fun ComposeApp() {
         val navController = rememberNavController()
-        NavHost(navController = navController, startDestination = "landing") {
+        NavHost(navController = navController, startDestination = "listing") {
             composable("landing") { LoginScreen(navController=navController, retrofit = retrofit,userInfoDao=provideUserInfoDao) }
-            composable("register_user") { UserRegistrationScreen(navController=navController, retrofit = retrofit,userInfoDao=provideUserInfoDao) }
-            composable("register_listing") { UserInfoListingScreen(navController=navController) }
-            composable("user_detailed", arguments = listOf(navArgument("key") {  type = NavType.StringType })){backStackEntry ->
-                val userKey = backStackEntry.arguments?.getString("key")
-                UserInfoDetailScreen(navController=navController,userKey = userKey,retrofit = retrofit)
+            composable("register") { UserRegistrationScreen(userInfo = null, navController=navController, retrofit = retrofit,userInfoDao=provideUserInfoDao) }
+            composable("user_edited/{userInfo}", arguments = listOf(navArgument("userInfo") {  type = NavType.StringType })){backStackEntry ->
+                val data = backStackEntry.arguments?.getString("userInfo")
+                val userInfo = Gson().fromJson(data,UserInfo::class.java)
+                UserRegistrationScreen(userInfo= userInfo,navController=navController, retrofit = retrofit,userInfoDao=provideUserInfoDao)
+            }
+            composable("listing") {
+                UserInfoListingScreen(navController=navController, retrofit = retrofit,userInfoDao=provideUserInfoDao)
+            }
+            composable("detailed/{userInfo}", arguments = listOf(navArgument("userInfo") {  type = NavType.StringType })){backStackEntry ->
+                val data = backStackEntry.arguments?.getString("userInfo")
+                val userInfo = Gson().fromJson(data,UserInfo::class.java)
+                UserInfoDetailScreen(userInfo= userInfo,navController=navController,retrofit = retrofit)
             }
         }
     }

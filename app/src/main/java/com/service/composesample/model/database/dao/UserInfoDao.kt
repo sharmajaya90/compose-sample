@@ -21,8 +21,8 @@ interface UserInfoDao {
     @Query("SELECT * FROM table_userinfo")
     fun fetchAllRegisterUsers(): Flow<List<UserInfoEntity>>
 
-    @Query("DELETE FROM table_userinfo WHERE id = :id")
-    fun deleteUserInfoWithId(id: Long): Int
+    @Query("DELETE FROM table_userinfo WHERE user_email = :email")
+    fun deleteUserInfoWithEmail(email: String): Int
 
     @Query("SELECT * FROM table_userinfo WHERE user_email = :email LIMIT 1")
     fun getUserByEmail(email: String): UserInfoEntity?

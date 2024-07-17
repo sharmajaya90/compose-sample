@@ -78,11 +78,11 @@ fun LoginScreen(navController: NavHostController, retrofit: Retrofit, userInfoDa
         Button(
             onClick = {
                 // Handle guest login
-                navController.navigate("landing")
+                navController.navigate("register")
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Login as Guest")
+            Text("Register")
         }
 
     }
